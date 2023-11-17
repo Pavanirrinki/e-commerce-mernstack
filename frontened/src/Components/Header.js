@@ -3,10 +3,12 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import "./Header.css";
 import {AiOutlineShoppingCart} from 'react-icons/ai'
 import { CgProfile } from 'react-icons/cg';
+import { useNavigate } from 'react-router-dom';
 function Header() {
+  const navigate = useNavigate()
   return (
     <div>
-  <ul className='unorder-list'>
+  <ul className='unorder-list' style={{marginTop:"20px"}}>
     <li>logo</li>
     <li>
   <div class="search-container">
@@ -17,7 +19,8 @@ function Header() {
 
     <li>Become a seller</li>
     <li>
-<div className='container'>  
+      
+<div className='container' onClick={()=>navigate("/Cart")}>  
   <AiOutlineShoppingCart className='cart-icon'/>  
 <p className='para'> Cart </p> 
       </div>
@@ -28,10 +31,12 @@ function Header() {
 <div class="dropdown">
 <CgProfile className='profile-pic'/>
   <div class="dropdown-content">
-    <a href="#">LOG IN</a>
-    <a href="#">SIGN UP</a>
-    <a href="#">MY ORDERS</a>
-    <a href="#">WISHLIST</a>
+<ul style={{listStyleType:"none"}}>
+    <li onClick={()=>navigate("/login")}>LOG IN</li>
+    <li onClick={()=>navigate("/signup")}>SIGN UP</li>
+    <li onClick={()=>navigate("/Myorders")}>MY ORDERS</li>
+    <li>WISHLIST</li>
+    </ul>
   </div>
 </div>
 

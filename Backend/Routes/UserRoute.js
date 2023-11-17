@@ -57,6 +57,18 @@ router.post("/login",async(req,res)=>{
     }
   })
 
-  
+//-----------PROFILE PIC ROUTE------------------ 
+router.post("/profile_pic",async(req,res)=>{
+    const {email,profilepic} = req.body;
+    try{
+const user = await usermodel.findOneAndUpdate({ email },
+    { $set: { profilepic } },
+    { new: true })
+    res.status(200).send("profilepic updated successfully")
+    }catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+})
   
 module.exports = router;

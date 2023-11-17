@@ -1,0 +1,12 @@
+.my_cart_container{
+    display: flex;
+    flex-direction: column;
+    min-width: 65%;
+}
+
+.my_cart_block{
+ margin: 10px 0px 20px 30px;
+    box-shadow: 5px 5px 8px 5px #888888;
+    display: flex;
+    justify-content: space-around;
+}

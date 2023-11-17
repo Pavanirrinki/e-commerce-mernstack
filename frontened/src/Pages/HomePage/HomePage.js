@@ -52,6 +52,12 @@ function HomePage() {
         <li style={{textAlign:"center"}}>Home & Furniture</li>
         {activeCategory === "home&furniture" && <Dropdown activeCategory={activeCategory}/>}
         </div>
+        <div style={{position:"relative"}} onMouseOver={() => handleMouseOver("Beauty&Toys")} 
+        onMouseOut={handleMouseOut}>
+        <img src={Toys_beauty} style={{width:"100px",height:"100px"}}/>
+        <li style={{textAlign:"center"}}>Beauty,Toys & More</li> 
+        {activeCategory === "Beauty&Toys" && <Dropdown activeCategory={activeCategory}/>}
+        </div>
         <div>
         <img src={Appliances} style={{width:"100px",height:"100px"}}/>
         <li style={{textAlign:"center"}}>Appliances</li>
@@ -60,12 +66,7 @@ function HomePage() {
         <img src={Travel} style={{width:"100px",height:"100px"}}/>
         <li>Travel</li> 
         </div>
-        <div style={{position:"relative"}} onMouseOver={() => handleMouseOver("Beauty&Toys")} 
-        onMouseOut={handleMouseOut}>
-        <img src={Toys_beauty} style={{width:"100px",height:"100px"}}/>
-        <li style={{textAlign:"center"}}>Beauty,Toys & More</li> 
-        {activeCategory === "Beauty&Toys" && <Dropdown activeCategory={activeCategory}/>}
-        </div>
+       
         <div>
         <img src={Two_wheeler} style={{width:"100px",height:"100px"}}/>
         <li style={{textAlign:"center"}}>Two Wheelers</li>
