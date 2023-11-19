@@ -3,45 +3,39 @@ import Footer from './Components/Footer';
 import Login from './Pages/LOGIN/Login';
 import Signup from './Pages/SIGNUP/Signup';
 import HomePage from './Pages/HomePage/HomePage';
-import{BrowserRouter,Route,Routes} from "react-router-dom"
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import MyOrders from './Components/MyOrders/MyOrders';
-import { useSelector,useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import Cart from './Components/Cart/Cart';
-function App() {
-//  const dispatch = useDispatch();
-  const userdata = useSelector(state=>state.userReducer)
-//  const fetchdata = () => {
-//   return async (dispatch) => {
-//     try {
-//       let response = await fetch("https://jsonplaceholder.typicode.com/todos");
-//       let data = await response.json();
-//       dispatch({ type: "SIGNUP_SUCCESS", payload: data });
-//     } catch (error) {
-//       // Handle error if needed
-//       console.error('Error fetching data:', error);
-//     }
-//   };
-// };
-// useEffect(() => {
-//   dispatch(fetchdata());
-// }, [dispatch]);
+import Singleproduct from './Pages/SingleProduct/Singleproduct';
+import AdminHomePage from './Components/Admin_panel/AdminHomePage';
 
-console.log(userdata)
+function App() {
+  const userdata = useSelector((state) => state.userReducer);
+ const noHeaderFooterRoutes = ['/login', '/signup','/admin_panel'];
+console.log(userdata);
+
+
+  const shouldDisplayHeaderFooter = () => {
+    return !noHeaderFooterRoutes.includes(window.location.pathname);
+  };
+
   return (
     <div>
- 
-    <BrowserRouter>
-    <Header />
-    <Routes>
-      <Route path='/' Component={HomePage} />
-      <Route path='/login' Component={Login} />
-      <Route path='/signup' Component={Signup} />
-      <Route path='/Myorders' Component={MyOrders} />
-      <Route path='/Cart' Component={Cart} />
-    </Routes>
-    <Footer />
-    </BrowserRouter>  
+      <BrowserRouter>
+   
+        {shouldDisplayHeaderFooter() && <Header />}
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/Myorders' element={<MyOrders />} />
+          <Route path='/Cart' element={<Cart />} />
+          <Route path='/product/:id' element={<Singleproduct />} />
+          <Route path='/admin_panel' element={<AdminHomePage />} />
+        </Routes>
+        {shouldDisplayHeaderFooter() && <Footer />}
+      </BrowserRouter>
     </div>
   );
 }

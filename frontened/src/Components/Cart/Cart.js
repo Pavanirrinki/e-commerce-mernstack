@@ -30,12 +30,30 @@ function Cart() {
           </div> 
            
         </div>
-        <div>
-       <h4>PRICE DETAILS</h4>
-       <div style={{display:"flex",justifyContent:"space-between"}}>
+        <div className='my_pricedetails_block'>
+       <h4 style={{textAlign:"center"}}>PRICE DETAILS</h4>
+       <div style={{display:"flex",justifyContent:"space-between",margin:"0px 10px 0px 10px"}}>
    <p >price</p>
    <p >deddd</p>
    </div>
+   <div style={{display:"flex",justifyContent:"space-between",margin:"0px 10px 0px 10px"}}>
+   <p >Dicount</p>
+   <p >deddd</p>
+   </div>
+   <div style={{display:"flex",justifyContent:"space-between",margin:"0px 10px 0px 10px"}}>
+   <p >Delivery Charges</p>
+   <p >deddd</p>
+   </div>
+   <div style={{display:"flex",justifyContent:"space-between",margin:"0px 10px 0px 10px"}}>
+   <p >Secured Packaging Fee</p>
+   <p >deddd</p>
+   </div>
+   <hr style={{border:"1px solid black"}}/>
+   <div style={{display:"flex",justifyContent:"space-between",margin:"0px 10px 0px 10px"}}>
+   <h5>Total Amount</h5>
+   <h5>500</h5>
+   </div>
+   <hr style={{border:"1px solid black"}}/>
         </div>
         </div>
     )

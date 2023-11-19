@@ -10,3 +10,8 @@
     display: flex;
     justify-content: space-around;
 }
+.my_pricedetails_block{
+    box-shadow: 5px 5px 8px 5px #888888;
+    width:25%;
+   
+}
