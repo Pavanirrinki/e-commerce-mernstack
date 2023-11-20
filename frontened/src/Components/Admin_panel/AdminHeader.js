@@ -13,6 +13,8 @@ import { FaUser } from "react-icons/fa";
 import { SiHomeassistantcommunitystore } from "react-icons/si";
 import { AiFillDollarCircle } from "react-icons/ai";
 import Dashboard from './Dashboard.js';
+import CreateProduct from './Products/CreateProduct.js';
+import CreateNewproduct from './Products/CreateNewproduct.js';
 
 
 function AdminHeader() {
@@ -57,8 +59,9 @@ function AdminHeader() {
 
     <div class="home-content">
        
-<Dashboard />
-   
+{/* <Dashboard /> */}
+  {/* <CreateProduct />  */}
+  <CreateNewproduct />
     </div>
   </section>
 </div>
