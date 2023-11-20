@@ -15,6 +15,7 @@ import { AiFillDollarCircle } from "react-icons/ai";
 import Dashboard from './Dashboard.js';
 import CreateProduct from './Products/CreateProduct.js';
 import CreateNewproduct from './Products/CreateNewproduct.js';
+import Categories from './Products/Categories.js';
 
 
 function AdminHeader() {
@@ -61,7 +62,8 @@ function AdminHeader() {
        
 {/* <Dashboard /> */}
   {/* <CreateProduct />  */}
-  <CreateNewproduct />
+  {/* <CreateNewproduct /> */}
+  <Categories />
     </div>
   </section>
 </div>
