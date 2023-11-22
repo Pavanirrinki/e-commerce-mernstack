@@ -16,10 +16,10 @@ import Dashboard from './Dashboard.js';
 import CreateProduct from './Products/CreateProduct.js';
 import CreateNewproduct from './Products/CreateNewproduct.js';
 import Categories from './Products/Categories.js';
-
+import { Outlet, Link,useNavigate } from "react-router-dom"
 
 function AdminHeader() {
- 
+ const navigate = useNavigate()
     return (
 <div>
 <div class="sidebar">
@@ -29,12 +29,12 @@ function AdminHeader() {
                              <RxHamburgerMenu />
                           </div>
                          <ul style={{ listStyleType: "none" }}>
-                              <li><FaHome style={{ marginRight: "10px" }} />Dashboard</li>
-                             <li><FaShoppingBag style={{ marginRight: "10px" }} />products</li>
-                             <li><FaShoppingCart style={{ marginRight: "10px" }} />Add products</li>
-                             <li><BiSolidCategory style={{ marginRight: "10px" }} />Categories</li>
-                             <li><BiSolidShoppingBags style={{ marginRight: "10px" }} />Orders</li>
-                             <li><FaUser style={{ marginRight: "10px" }} />Users</li>
+                              <li onClick={()=>navigate("/admin_panel/Dashboard")}><FaHome style={{ marginRight: "10px" }} />Dashboard</li>
+                             <li  onClick={()=>navigate("/admin_panel/CreateProduct")}><FaShoppingBag style={{ marginRight: "10px" }} />products</li>
+                             <li  onClick={()=>navigate("/admin_panel/CreateNewproduct")}><FaShoppingCart style={{ marginRight: "10px" }} />Add products</li>
+                             <li  onClick={()=>navigate("/admin_panel/Categories")}><BiSolidCategory style={{ marginRight: "10px" }} />Categories</li>
+                             <li  onClick={()=>navigate("/admin_panel/Dashboard")}><BiSolidShoppingBags style={{ marginRight: "10px" }} />Orders</li>
+                             <li ><FaUser style={{ marginRight: "10px" }} />Users</li>
                              <li><SiHomeassistantcommunitystore style={{ marginRight: "10px" }} />Sellers</li>
                               <li><AiFillDollarCircle style={{ marginRight: "10px" }} />Transactions</li>
                         </ul>
@@ -60,10 +60,13 @@ function AdminHeader() {
 
     <div class="home-content">
        
-{/* <Dashboard /> */}
-  {/* <CreateProduct />  */}
-  {/* <CreateNewproduct /> */}
-  <Categories />
+{/* {window.location.pathname === "/admin_panel/Dashboard" && <Dashboard /> }
+{window.location.pathname === "/admin_panel/CreateProduct" && <CreateProduct /> }
+{window.location.pathname === "/admin_panel/CreateNewproduct" && <CreateNewproduct />}
+{window.location.pathname === "/admin_panel/Categories" && <Categories />  }
+  */}
+  {window.location.pathname === "/admin_panel" ? <Dashboard />:<Outlet />}
+
     </div>
   </section>
 </div>

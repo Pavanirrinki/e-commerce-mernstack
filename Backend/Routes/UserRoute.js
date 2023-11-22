@@ -7,24 +7,28 @@ const Middleware = require("../MiddleWare/MiddleWare.js");
 
 
 //-----------------SIGN UP ROUTE------------
-router.post("/signup",async(req,res)=>{
-    const {  firstname,lastname,email,password} = req.body;
-    try{
-const existingUser = await usermodel.findOne({email})
-if(existingUser){
-    res.status(400).send("Email Already Exists")
-}
-if(!firstname|| !lastname || !email || !password){
-    res.status(401).send("please fill all fields")
-}else{
-    const user =await new usermodel({ firstname,lastname, email, password });
-    await user.save();
-    res.status(201).json({ user });
-}
-    }catch(e){
-        res.status(400).json({error:e.message})
+router.post("/signup", async (req, res) => {
+  const { firstname, lastname, email, password } = req.body;
+
+  try {
+    const existingUser = await usermodel.findOne({ email });
+
+    if (existingUser) {
+      return res.status(500).send("Email Already Exists");
     }
-})
+
+    if (!firstname || !lastname || !email || !password) {
+      return res.status(401).send("Please fill all fields");
+    }
+
+    const user = await new usermodel({ firstname, lastname, email, password });
+    await user.save();
+    return res.status(201).json({ user });
+  } catch (e) {
+    return res.status(400).json({ error: e.message });
+  }
+});
+
 
 //------------------LOGIN ROUTE----------------------
 router.post("/login",async(req,res)=>{
