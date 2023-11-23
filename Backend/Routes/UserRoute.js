@@ -31,35 +31,38 @@ router.post("/signup", async (req, res) => {
 
 
 //------------------LOGIN ROUTE----------------------
-router.post("/login",async(req,res)=>{
-    const {email,password} = req.body;
-    try{
-      const existingUser = await usermodel.findOne({ email });
-      if(existingUser){
-        if(existingUser.password == password){
-          let payload={ 
-            user:{
-                id:existingUser.id
-            }
-           
-        }
-        
-        jwt.sign(payload,"jwtpassword",(error,token)=>{
-         if(error) throw error
-       return res.json({token,existingUser})
-        
-        })
-        }else{
-          return res.status(400).send("password wrong")
-        }
-      }else{
-        return  res.status(400).send("email wrong")
+router.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const existingUser = await usermodel.findOne({ email });
+    if (existingUser) {
+      if (existingUser.password == password) {
+        let payload = {
+          user: {
+            id: existingUser.id,
+          },
+        };
+
+        jwt.sign(payload, "jwtpassword", (error, token) => {
+          if (error) throw error;
+
+          // Omit the password field from the response
+          const userWithoutPassword = { ...existingUser._doc }; // mongodb data to plain javascript object can be converted 
+          delete userWithoutPassword.password;
+
+          return res.json({ token, user: userWithoutPassword });
+        });
+      } else {
+        return res.status(400).send("password wrong");
       }
-    }catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Internal server error' });
+    } else {
+      return res.status(400).send("email wrong");
     }
-  })
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 //-----------PROFILE PIC ROUTE------------------ 
 router.post("/profile_pic",async(req,res)=>{
@@ -74,5 +77,7 @@ const user = await usermodel.findOneAndUpdate({ email },
       res.status(500).json({ message: 'Internal server error' });
     }
 })
+
+
   
 module.exports = router;

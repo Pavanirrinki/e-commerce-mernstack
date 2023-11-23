@@ -15,5 +15,5 @@ Image:{
   required:true
 }
 });
-const category = mongoose.model('Product',categorySchema);
+const category = mongoose.model('category',categorySchema);
 module.exports = category;

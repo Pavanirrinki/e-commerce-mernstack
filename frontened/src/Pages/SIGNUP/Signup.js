@@ -5,8 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signupActions } from '../../Redux/MiddlewareActions';
 import { API } from '../../API/API';
 import axios from "axios"
+import { useNavigate } from 'react-router-dom';
 function Signup() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [firstname,setFirstname] = useState('')
   const [lastname,setLastname] = useState('')
   const [email,setEmail] = useState('')
@@ -20,9 +22,11 @@ function Signup() {
   const signupformSubmit=async(e)=>{
     e.preventDefault();
 await dispatch(signupActions(payload))
-    console.log(firstname,lastname,email,password)
-    console.log(userdata ,'userdata');
-}
+    console.log(firstname,lastname,email,password);
+    setTimeout(()=>{
+navigate("/")
+    },2000)
+  }
 
  return (
     <div className='body'>

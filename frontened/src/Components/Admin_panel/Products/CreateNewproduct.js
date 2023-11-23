@@ -28,10 +28,13 @@ function CreateNewproduct() {
         <label className='product_label'>Description</label><br />
         <textarea  placeholder='Product Description...' className='input_field' rows={5} cols={100}/>
         </div>
-       
+        <div>
+        <label className='product_label'>category</label><br />
+        <input type='text' placeholder='Product Stock...' className='input_field'/>
+        </div>
         <div >
         <label className='product_label'>Images</label><br />
-        <input type='file' style={{marginBottom:"20px",width:"100%"}}/>
+        <input type='file' style={{marginBottom:"20px",width:"100%"}} />
         </div>
        </form>
        </div>
