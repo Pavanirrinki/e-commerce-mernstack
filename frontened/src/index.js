@@ -7,10 +7,14 @@ import { BrowserRouter } from 'react-router-dom';
 import store from './Redux/Store';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
       <BrowserRouter>
+      <ToastContainer />
      <Provider store={store}>
     <App />
     </Provider>

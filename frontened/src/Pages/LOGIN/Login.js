@@ -2,13 +2,32 @@ import React,{useState} from 'react'
 import "./Login.css"
 import axios from 'axios';
 import { API } from '../../API/API';
+import { useNavigate } from 'react-router-dom';
+import {  toast } from 'react-toastify';
 
 function Login() {
   const [email,setEmail]= useState('');
   const [password,setPassword]= useState('');
-  const loginformsubmit = (e) =>{
+  const navigate = useNavigate()
+  const loginformsubmit = async (e) =>{
     e.preventDefault();
-   axios.post(API+"login",{email,password}).then((res)=>localStorage.setItem("userdata",JSON.stringify(res.data)))
+   await axios.post(API+"login",{email,password}).
+   then(async (res)=>{
+   await localStorage.setItem("userdata",JSON.stringify(res.data));
+   navigate("/")
+  }).catch((error)=>{
+  console.log(error.message);
+  toast.error(`${error.response.data} `, {
+    position: "top-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+    })
+ })
   }
   return (
    <div className='login-form'>

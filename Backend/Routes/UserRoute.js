@@ -45,12 +45,12 @@ router.post("/login", async (req, res) => {
 
         jwt.sign(payload, "jwtpassword", (error, token) => {
           if (error) throw error;
-
-          // Omit the password field from the response
           const userWithoutPassword = { ...existingUser._doc }; // mongodb data to plain javascript object can be converted 
           delete userWithoutPassword.password;
 
           return res.json({ token, user: userWithoutPassword });
+         
+         
         });
       } else {
         return res.status(400).send("password wrong");

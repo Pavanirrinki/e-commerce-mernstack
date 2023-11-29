@@ -23,3 +23,49 @@ export const signupActions = (payload)=>{
           });
     }
 }
+
+export const categoriesActions = ()=>{
+  return async (dispatch) =>{
+      dispatch({ type: 'CATEGORIES_REQUEST' });
+
+     await axios
+        .get(API+"all_catgories")
+        .then((response) => {
+         console.log("response.data",response.data)
+          dispatch({
+              type:"CATEGORIES_SUCCESS",
+              payload:response.data
+          });
+        })
+        .catch((error) => {
+           dispatch({
+              type:'CATEGORIES_FAILURE',
+              payload:error.message
+          });
+          console.log(error.message,"pavan kumar")
+        });
+  }
+}
+
+export const ProductsActions = ()=>{
+  return async (dispatch) =>{
+      dispatch({ type: 'PRODUCTS_REQUEST' });
+
+     await axios
+        .get(API+"get_all_product")
+        .then((response) => {
+         console.log("response.data",response.data)
+          dispatch({
+              type:"PRODUCTS_SUCCESS",
+              payload:response.data
+          });
+        })
+        .catch((error) => {
+           dispatch({
+              type:'PRODUCTS_FAILURE',
+              payload:error.message
+          });
+          console.log(error.message,"pavan kumar")
+        });
+  }
+}

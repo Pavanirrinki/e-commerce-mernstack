@@ -1,8 +1,9 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import "./Categories.css";
 import { PiDotsThreeOutlineBold } from "react-icons/pi";
 import axios from "axios"
 import {imagessubmit,files} from "../../Cloudinary/Cloudinary.js"
+import { API } from '../../../API/API.js';
 function Categories() {
   const [categoryname,setCategoryname] = useState(""); 
   const [description,setDescription] = useState("");
@@ -10,13 +11,22 @@ function Categories() {
 
 
   const handleFileChange = (e) => {
-    const file = e.target.files;
+    const file = e.target.files[0];
     setImage(file);
   };
-  const categorysubmit=(e)=>{
-  imagessubmit(e,image)
-console.log(image,"image")
-console.log("files12333",files)
+  const categorysubmit=async (e)=>{
+  await imagessubmit(e,image)
+  console.log("pavan kumar",files)
+  setTimeout(async ()=>{
+  
+await axios.post(API+"add_category",{
+  name:categoryname,
+  description,
+  Image:files[0]
+}).then((res)=>{
+  console.log(res)
+}).catch((error)=>console.log(error.message))
+},2000)
   }
  
 
@@ -27,17 +37,19 @@ console.log("files12333",files)
   <form onSubmit={categorysubmit} style={{display:"flex",flexDirection:"column"}}>
 <div>
         <label className='product_label'>Category Title</label><br />
-        <input type='text' placeholder='type here' className='categories_input'/>
+        <input type='text' placeholder='type here' className='categories_input' value={categoryname} 
+        onChange={(e)=>setCategoryname(e.target.value)}/>
         </div>
 
         <div>
         <label className='product_label'>Description</label><br />
-        <textarea  placeholder='Product Description...' className='categories_input' rows={5} cols={40}/>
+        <textarea  placeholder='Product Description...' className='categories_input' rows={5} cols={40} value={description} 
+        onChange={(e)=>setDescription(e.target.value)}/>
         </div>
        
         <div >
         <label className='product_label' >Images</label><br />
-        <input type='file' style={{marginBottom:"20px",width:"100%"}}  onChange={handleFileChange} multiple/>
+        <input type='file' style={{marginBottom:"20px",width:"100%"}}  onChange={handleFileChange} />
         </div>
         <input type='submit' value='submit'  style={{marginBottom:"20px",width:"100%"}}/>
         </form>

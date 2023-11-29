@@ -7,7 +7,7 @@ import axios from 'axios';
 import { API } from '../../../API/API.js';
 import {  toast } from 'react-toastify';
 
-function CreateNewproduct() {
+function EditProduct() {
   const [producttile,setProducttitle] = useState('');
   const [productprice,setProductprice] = useState(0);
   const [productdescription,setProductdescription] = useState('');
@@ -80,9 +80,9 @@ await dispatch(categoriesActions())
        <div style={{display:"flex",justifyContent:"space-between"}}>
        <button style={{border:"none",backgroundColor:"red",color:"white",fontWeight:"bolder",
        padding:"0px 5px 0px 5px",borderRadius:"10px",marginRight:"50px"}}>Go to products</button>
-       <h4 style={{fontWeight:"bold"}}>Add Products</h4>
+       <h4 style={{fontWeight:"bold"}}>Edit Products</h4>
        <button style={{border:"none",backgroundColor:"green",color:"white",fontWeight:"bolder",
-       padding:"0px 5px 0px 5px",borderRadius:"10px",marginRight:"50px"}} onClick={handleSubmit}>Publish Now</button>
+       padding:"0px 5px 0px 5px",borderRadius:"10px",marginRight:"50px"}} onClick={handleSubmit}>Update Now</button>
        </div>
        <div className='create_product_form'>
        <form >
@@ -129,4 +129,4 @@ return (
   )
 }
 
-export default CreateNewproduct
+export default EditProduct;

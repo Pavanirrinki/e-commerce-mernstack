@@ -5,9 +5,9 @@ import Travel from "../../Images/aeroplane.jpg";
 function MyOrders() {
   return (
 <div className='my_cart'>
-  <div style={{display:"flex"}}>
-  <input type="search" />
-  <button>Search</button>
+  <div style={{display:"flex",justifyContent:"center",width:"100%"}}>
+  <input type="search" className='search_bar'/>
+  <button className='search_button'>Search</button>
   </div>
       <div className='my_order_block'>
         <img src={Travel} style={{ width: "140px", height: "200px", padding: "20px" }} />
