@@ -29,7 +29,7 @@ await dispatch(categoriesActions())
     const file = e.target.files;
     setProductimage(file);
   };
-
+console.log("pqwert",productimage)
   const handleSubmit = async (event) => {
     event.preventDefault();
     await imagessubmit(event,productimage);

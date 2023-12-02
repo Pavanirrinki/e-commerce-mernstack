@@ -18,8 +18,7 @@ await dispatch(ProductsActions())
    console.log("productsdata",productsdata)
   return (
     <div>
-     
-       <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
           <h4 style={{ fontWeight: "bold" }}>Products</h4>
           <button style={{
             border: "none", backgroundColor: "green", color: "white", fontWeight: "bolder",
@@ -29,7 +28,8 @@ await dispatch(ProductsActions())
       
         <div style={{ border: "1px solid black", backgroundColor: "white", display: "flex", justifyContent: "center", flexWrap: "wrap", margin: "20px" }}>
         {productsdata && productsdata.map((data)=>
-      {return (
+      {
+        return (
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "250px", border: "1px solid black", margin: "10px" }}>
       
               <img src={data.images[0]} style={{ height: "200px", width: "200px" }} />

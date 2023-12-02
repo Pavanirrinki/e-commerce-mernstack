@@ -7,12 +7,13 @@ const router = express.Router();
 router.post("/add_category",async(req,res)=>{
     const{name,description,Image} =req.body;
     try{
-        const existingcategory = await categorymodel.findOne({name});
+      console.log("pppppppppppppp",name)
+        const existingcategory = await categorymodel.findOne({name:name});
         console.log(existingcategory);
-        if(existingcategory.name){
+        if(existingcategory?.name){
           return  res.status(400).send("Category already exists");
         }else{
-        const category = await new categorymodel({ name,description,Image});
+        const category = await new categorymodel({name,description,Image});
         await category.save();
         return res.status(201).json({ category });
         }
@@ -31,6 +32,31 @@ router.post("/add_category",async(req,res)=>{
         res.status(400).json({error:e.message});
     }
   })
+
+// GET ONE CATEGORY
+router.get("/category/:id",async(req,res)=>{
+  try{
+    const particularcategory = await categorymodel.find({_id:req.params.id});
+    return res.status(200).json({particularcategory})
+
+  }catch(error){
+    return res.status(400).json({error})
+  }
+})
+
+// UPDATE CATEGORY
+router.patch('/update_category/:id', async (req, res) => {
+  try {
+    const updatedcategory = await categorymodel.findByIdAndUpdate(
+      req.params.id,
+      { $set: req.body },
+      { new: true } 
+    );
+   return res.status(200).json(updatedcategory);
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 //add product 
 router.post("/add_product",async(req,res)=>{
@@ -66,4 +92,14 @@ router.patch('/update_product/:id', async (req, res) => {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
   });
+
+//GET PARTICULAR PRODUCT
+router.get('/product/:id', async (req, res) => {
+try {
+    const particularproduct = await productmodel.findById({_id:req.params.id})
+   return res.status(200).json(particularproduct);
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 module.exports = router;
