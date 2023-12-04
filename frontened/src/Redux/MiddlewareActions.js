@@ -69,3 +69,27 @@ export const ProductsActions = ()=>{
         });
   }
 }
+
+export const ParticularCategoryAction =(category_id)=>{
+  return async (dispatch) =>{
+    dispatch({ type:'PARTICULARCATEGORY_REQUEST'});
+
+   await axios
+      .get(API+`all_products/${category_id}`)
+      .then((response) => {
+       console.log("response.data",response.data)
+        dispatch({
+            type:"PARTICULARCATEGORY_SUCCESS",
+            payload:response.data
+        });
+      })
+      .catch((error) => {
+         dispatch({
+            type:'PARTICULARCATEGORY_FAILURE',
+            payload:error.message
+        });
+        console.log(error.message,"pavan kumar")
+      });
+}
+
+}

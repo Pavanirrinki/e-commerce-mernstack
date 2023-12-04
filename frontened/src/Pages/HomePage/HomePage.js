@@ -1,20 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import "./HomePage.css"
-import groceries from "../../Images/6ca8f02f56d48f0daf38063da995e763.png"
-import mobiles from "../../Images/download.jpeg"
-import Travel from "../../Images/aeroplane.jpg"
-import Toys_beauty from "../../Images/images.jpeg"
-import Two_wheeler from "../../Images/bike-png-from-pngfre-36.png"
-import Appliances from "../../Images/Electronics.jpg"
-import Electronics from "../../Images/lovepik-computer-notebook.png"
-import Home_furniture from "../../Images/Electronic-Kitchen-Appliances.png"
-import Fashion from "../../Images/fashion-verge.avif"
+import { useSelector,useDispatch } from 'react-redux';
+import { categoriesActions } from '../../Redux/MiddlewareActions';
 import  Carousel  from '../../Components/Carousel';
 import CategoryProducts from '../../Components/Category_products/CategoryProducts';
 import Dropdown from '../../Components/Dropdowns/Dropdown';
+import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from 'react-icons/bs';
+import "../../Components/Category_products/CategoryProducts.css";
+
 function HomePage() {
   const [activeCategory, setActiveCategory] = useState(null);
+  const dispatch = useDispatch();
+  const [slide, setSlide] = useState(0);
+  const categoriesdata = useSelector((state)=>state.CategoriesReducer.categories.category);
+  // REDUX STATE FOR CATEGORY(ALL CATEGORIES DATA)
 
+  useEffect( ()=>{
+    const responsedata = async () =>{
+await dispatch(categoriesActions())
+    }
+    responsedata();
+   },[])
   const handleMouseOver = (category) => {
     setActiveCategory(category);
   }
@@ -23,66 +29,41 @@ function HomePage() {
     setActiveCategory(null);
   }
 
+ 
+
+  const forwardimages = () => {
+    setSlide((prevSlide) => (prevSlide + 9) % categoriesdata.length);
+  };
+
+  const previousimages = () => {
+    setSlide((prevSlide) => (prevSlide - 9 + categoriesdata.length) % categoriesdata.length);
+  };
+
+
+  console.log("pavan kumar srimannarayana",categoriesdata)
+
   return (
     <div>
-      <ul style={{listStyleType:"none",marginTop:"10px"}} className='categories-types'>
-        <div>
-            <img src={groceries} style={{width:"100px",height:"100px"}}/>
-        <li style={{textAlign:"center"}}>Grocery</li>
-        </div>
-        <div>
-        <img src={mobiles} style={{width:"100px",height:"100px"}}/>
-        <li style={{textAlign:"center"}}>Mobiles</li>
-        </div>
-        <div style={{position:"relative",cursor:"pointer"}}  onMouseOver={() => handleMouseOver("fashion")} 
-        onMouseOut={handleMouseOut}>
-        <img src={Fashion} style={{width:"100px",height:"100px"}}/>
-        <li style={{textAlign:"center"}} >Fashion</li>
-        {activeCategory === "fashion" &&  <Dropdown activeCategory={activeCategory}/>}
-        </div>
-        <div style={{position:"relative",cursor:"pointer"}} onMouseOver={() => handleMouseOver("electronics")} 
-        onMouseOut={handleMouseOut}>
-        <img src={Electronics} style={{width:"100px",height:"100px"}}/>
-        <li style={{textAlign:"center"}}>Electronics</li>
-        {activeCategory === "electronics" && <Dropdown activeCategory={activeCategory}/>}
-        </div>
-        <div style={{position:"relative"}} onMouseOver={() => handleMouseOver("home&furniture")} 
-        onMouseOut={handleMouseOut}>
-        <img src={Home_furniture} style={{width:"100px",height:"100px"}}/>
-        <li style={{textAlign:"center"}}>Home & Furniture</li>
-        {activeCategory === "home&furniture" && <Dropdown activeCategory={activeCategory}/>}
-        </div>
-        <div style={{position:"relative"}} onMouseOver={() => handleMouseOver("Beauty&Toys")} 
-        onMouseOut={handleMouseOut}>
-        <img src={Toys_beauty} style={{width:"100px",height:"100px"}}/>
-        <li style={{textAlign:"center"}}>Beauty,Toys & More</li> 
-        {activeCategory === "Beauty&Toys" && <Dropdown activeCategory={activeCategory}/>}
-        </div>
-        <div>
-        <img src={Appliances} style={{width:"100px",height:"100px"}}/>
-        <li style={{textAlign:"center"}}>Appliances</li>
-        </div>
-        <div>
-        <img src={Travel} style={{width:"100px",height:"100px"}}/>
-        <li>Travel</li> 
-        </div>
-       
-        <div>
-        <img src={Two_wheeler} style={{width:"100px",height:"100px"}}/>
-        <li style={{textAlign:"center"}}>Two Wheelers</li>
-        </div>
-      </ul>
+    <ul style={{listStyleType:"none",marginTop:"10px"}} className='categories-types'>
+    {categoriesdata && categoriesdata?.length >9  &&
+<BsArrowLeftCircleFill className="arrow1"  onClick={previousimages} style={{margin:"auto 0"}}/> }
+  {categoriesdata && categoriesdata?.map((category,idx)=>{
+    return(
+      <div style={{position:"relative",cursor:"pointer"}}  onMouseOver={() => handleMouseOver(category.name.toLowerCase())} 
+      onMouseOut={handleMouseOut} className={idx >= slide && idx < slide + 9 ? 'visible' : 'hidden'}>
+      <img src={category.Image} style={{width:"100px",height:"100px"}} />
+  <li style={{textAlign:"center",fontWeight:"bold",fontSize:"12px",marginTop:"5px"}}>{category?.name}</li>
+  {activeCategory == category.name.toLowerCase() && <Dropdown activeCategory={activeCategory}/>}
+  </div>
+    )
+  })}
+{categoriesdata && categoriesdata?.length >9 &&
+    <BsArrowRightCircleFill className='arrow1' style={{margin:"auto 0",zIndex:"100px"}} onClick={forwardimages} />   }
+          </ul>
 
 <Carousel />
-
-   <CategoryProducts />
-
-
-
-
-    
-
-    </div>
+<CategoryProducts />
+</div>
   )
 }
 

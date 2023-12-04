@@ -1,27 +1,25 @@
-
-
 const initialState = {
     products:[],
     isLoading: false,
     error: null,
   };
   
-  const ProductsReducer = (state = initialState, action) => {
+  const ParticularCategoryReducer = (state = initialState, action) => {
     switch (action.type) {
-      case 'PRODUCTS_REQUEST':
+      case 'PARTICULARCATEGORY_REQUEST':
         return {
           ...state,
           isLoading: true,
           error: null,
         };
-      case 'PRODUCTS_SUCCESS':
+      case 'PARTICULARCATEGORY_SUCCESS':
         return {
           ...state,
           products: action.payload,
           isLoading: false,
           error: null,
         };
-      case 'PRODUCTS_FAILURE':
+      case 'PARTICULARCATEGORY_FAILURE':
         return {
           ...state,
           isLoading: false,
@@ -32,5 +30,4 @@ const initialState = {
     }
   };
   
-  export default ProductsReducer;
-  
+  export default ParticularCategoryReducer;

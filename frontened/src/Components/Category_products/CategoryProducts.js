@@ -27,7 +27,7 @@ function CategoryProducts() {
   };
 
   return (
-    <div>
+    <div style={{marginBottom:"50px"}}>
       <h5 className="category_heading">Best Of Electronics</h5>
       <div style={{display:"flex",alignItems:"center"}}>
         <BsArrowLeftCircleFill className="arrow1" onClick={previousimages} />
@@ -42,7 +42,7 @@ function CategoryProducts() {
             />
           ))}
         </div>
-        <BsArrowRightCircleFill className="arrow1" onClick={forwardimages} />
+        <BsArrowRightCircleFill className="arrow1"   onClick={forwardimages} />
       </div>
     </div>
   );

@@ -19,9 +19,26 @@ const productSchema = new mongoose.Schema({
  category:{
     type: mongoose.Schema.Types.ObjectId, ref: 'category' 
  },
+ sub_category:{
+type:String,
+required:true
+ },
  images:[{
     type:String,
     required:true
+ }],
+ rating:{
+   type:Number,
+   default:0
+ },
+ comments:[{
+   coment:{
+      type:String,
+   },
+   postedBy:{
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: 'User'
+   }
  }]
 });
 const Product = mongoose.model('Product',productSchema);

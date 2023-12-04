@@ -14,6 +14,7 @@ function CreateNewproduct() {
   const [productscount,setProductscount] = useState(0);
   const [productcategory,setProductcategory] = useState(null);
   const [productimage,setProductimage] = useState(null);
+  const [sub_category,setSub_category] = useState('')
   const categoriesdata = useSelector((state)=>state.CategoriesReducer.categories.category);
   const dispatch = useDispatch();
   useEffect( ()=>{
@@ -23,21 +24,29 @@ await dispatch(categoriesActions())
     responsedata();
    },[])
    const handleCategoryChange = (event) => {
+    console.log(event.target.value,'lllllllllllllllllllllllllllllllllllllllllllllllllllll');
     setProductcategory(event.target.value);
+   
   };
-  const handleFileChange = (e) => {
-    const file = e.target.files;
-    setProductimage(file);
-  };
+ const handleFileChange = (e) => {
+   
+  const files = e.target.files;
+
+    setProductimage(files);
+};
+
 console.log("pqwert",productimage)
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(productcategory)
     await imagessubmit(event,productimage);
   await  axios.post(API+"add_product",{name:producttile,
       price:productprice,
       countInstock:productscount,
       description:productdescription,
       category:productcategory,
+      sub_category,
       images:files}).then((res)=>{
         console.log(res.data);
         toast.success(`product successfully added`, {
@@ -55,7 +64,8 @@ console.log("pqwert",productimage)
         setProductimage(null)
         setProductprice(0)
         setProductscount(0)
-        setProducttitle('')
+        setProducttitle('');
+        window.location.reload();
         }).
       catch((error)=>{
         console.log(error.message);
@@ -71,7 +81,6 @@ console.log("pqwert",productimage)
           })
        })
 };
-
 
 
 
@@ -107,21 +116,30 @@ console.log("pqwert",productimage)
         value={productdescription} onChange={(e)=>setProductdescription(e.target.value)}/>
         </div>
         <div>
-        <label className='product_label' for='categories-names'>category</label><br />
-        <select name="categories-names" id="categories-names" className='input_field'  value={productcategory}
-        onChange={handleCategoryChange}>
-             <option value="" disabled>Select a category</option>
-      {categoriesdata && categoriesdata.map((data)=>{
-return ( 
+        <label className='product_label' htmlFor='categories-names'>Category</label><br />
+<select 
+  name="categories-names" 
+  id="categories-names" 
+  className='input_field'  
+  value={productcategory}
+  onChange={handleCategoryChange}
+>
+  <option value="" disabled selected>Select a category</option>
+  {categoriesdata && categoriesdata.map((data) => (
+    <option key={data._id} value={data._id}>{data.name}</option>
+  ))}
+</select>
 
-<option value={data._id} >{data.name}</option>
-)
-      })}
-      </select>
+        </div>
+        <div>
+        <label className='product_label'>Sub Category</label><br />
+        <input type='text' placeholder='Enter sub category.......' className='input_field' 
+        value={sub_category} onChange={(e)=>setSub_category(e.target.value)}/>
         </div>
         <div >
         <label className='product_label'>Images</label><br />
-        <input type='file' style={{marginBottom:"20px",width:"100%"}} multiple onChange={handleFileChange} />
+        <input type='file' style={{width:"100%"}} multiple onChange={handleFileChange} />
+        <p style={{fontSize:"12px",fontWeight:"bold",color:"red"}}>(Upload Atleast 2 Images)</p>
         </div>
        </form>
        </div>

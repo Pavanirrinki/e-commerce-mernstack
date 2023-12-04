@@ -51,12 +51,13 @@ console.log("pp",productimage)
     setProductcategory(event.target.value);
   };
   const handleFileChange = (e) => {
-   setImages(false)
+   setImages(false);
+  setProductimage(null)
     const file = e.target.files;
       setProductimage(file);
   
   };
-
+console.log("productimge 1234678",productimage)
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -64,20 +65,20 @@ console.log("pp",productimage)
       console.log("falsefalsefalsefalsefalse")
     await imagessubmit(event,productimage);
     }
- console.log("pppppppppppppooooooll",productimage)
+ console.log("pppppppppppppooooooll",productimage,files)
  await axios.patch(API+`update_product/${params.id}`,
  {name:producttile,
   price:productprice,
   countInstock:productscount,
   description:productdescription,
   category:productcategory,
-  images: (images123==false && files.length > 0) ? files : productimage}).then((res)=> console.log(res.data) ).
+  images: (files.length > 0) ? files : productimage}).then((res)=> console.log(res.data) ).
   catch((error)=>console.log(error.message))
  
 };
 
 
-console.log("pokemonbkdkflflff",files)
+console.log("pokemonbkdkflflff",files,productimage)
 
   return (
     <div>

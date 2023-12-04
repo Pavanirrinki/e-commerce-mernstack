@@ -58,11 +58,37 @@ router.patch('/update_category/:id', async (req, res) => {
   }
 });
 
+// DELETE CATEGORY
+router.delete("/delete/:id",async(req,res)=>{
+  try {
+    const deletedcategory = await categorymodel.findById(req.params.id);
+    
+    if(!deletedcategory){
+      return res.status(400).json("Category not found")
+    }else{
+    await categorymodel.findByIdAndDelete( req.params.id,{ new: true })
+   return res.status(200).json('deleted succesfully');
+    }
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+})
+
+//GET ONE CATEGORY ALL PRODUCTS
+router.get("/all_products/:category",async(req,res)=>{
+  try{
+const particularcategory = await productmodel.find({category:req.params.category});
+return res.status(200).json(particularcategory);
+  }catch(error){
+    return res.status(400).json({error:error.message})
+  }
+})
+
 //add product 
 router.post("/add_product",async(req,res)=>{
-    const{name,price,countInstock,description,category,images} =req.body;
+    const{name,price,countInstock,description,category,images,sub_category} =req.body;
     try{
-        const product = await new productmodel({ name,price,countInstock,description,category,images });
+        const product = await new productmodel({ name,price,countInstock,description,category,images,sub_category });
         await product.save();
         return res.status(201).json({ product });
     }catch(e){
@@ -102,4 +128,19 @@ try {
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+router.delete("/delete_product/:id",async(req,res)=>{
+  try {
+    const deletedproduct = await productmodel.findById(req.params.id);
+    
+    if(!deletedproduct){
+      return res.status(400).json("Product not found")
+    }else{
+    await productmodel.findByIdAndDelete( req.params.id,{ new: true })
+   return res.status(200).json('deleted succesfully');
+    }
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+})
 module.exports = router;

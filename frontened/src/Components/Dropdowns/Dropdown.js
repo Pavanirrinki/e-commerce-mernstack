@@ -36,10 +36,10 @@ function Dropdown({activeCategory}) {
 
          {activeCategory === "electronics" &&
         <><li>Electronic</li><li>Electronic</li><li>Electronic</li><li>Electronic</li><li>Electronic</li></>}
-         {activeCategory === "home&furniture" &&
+         {activeCategory === "home & furniture" &&
         <><li>home&furniture</li><li>home&furniture</li><li>home&furniture</li><li>home&furniture</li>
         <li>home&furniture</li></>}
-        {activeCategory === "Beauty&Toys" &&
+        {activeCategory === "beauty & toys" &&
         <><li>Beauty&Toys</li><li>Beauty&Toys</li><li>Beauty&Toys</li><li>Beauty&Toys</li>
         <li>Beauty&Toys</li></>}
     </ul>

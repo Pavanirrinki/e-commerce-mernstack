@@ -5,6 +5,8 @@ import { MdDelete } from "react-icons/md";
 import { ProductsActions } from '../../../Redux/MiddlewareActions';
 import { useDispatch,useSelector} from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { API } from '../../../API/API';
 function CreateProduct() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -15,6 +17,18 @@ await dispatch(ProductsActions())
     }
     productsdata();
    },[])
+
+   const deleteproduct =(e,id)=>{
+    e.preventDefault();
+    axios.delete(API+`delete_product/${id}`).then((res)=>{window.location.reload();
+      console.log(res)}).catch((error)=>console.log(error.message))
+  }
+
+
+
+
+
+
    console.log("productsdata",productsdata)
   return (
     <div>
@@ -38,7 +52,8 @@ await dispatch(ProductsActions())
               <div style={{ display: "flex", justifyContent: "center", marginBottom: "10px" }}>
                 <FaEdit style={{ fontSize: "20px", border: "3px solid green", width: "60px", height: "30px" }} 
                 onClick={()=>navigate(`/admin_panel/Edit_product/${data._id}`)}/>
-                <MdDelete style={{ fontSize: "20px", border: "3px solid red", width: "60px", height: "30px" }} />
+                <MdDelete style={{ fontSize: "20px", border: "3px solid red", width: "60px", height: "30px" }} 
+                onClick={(e)=>deleteproduct(e,data._id)}/>
               </div>
                
             </div>
