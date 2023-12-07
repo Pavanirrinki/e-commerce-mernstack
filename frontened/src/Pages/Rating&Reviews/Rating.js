@@ -2,7 +2,7 @@ import React from 'react'
 import { FaStar } from "react-icons/fa";
 import "./Rating.css";
 import Comments from '../Comments/Comments.js';
-function Rating() {
+function Rating({Rating}) {
   return (
     <div style={{display:"flex",justifyContent:"space-between"}}>
         <div style={{display:"flex",flexDirection:"column",minWidth:"15%",marginLeft:"5%"}}>
@@ -15,7 +15,7 @@ function Rating() {
                 </span>
             )
          })}
-         <p>3.9 out 5</p>
+         <p>{Rating} out 5</p>
         </div>
      <h6><span style={{fontSize:"20px"}}>5</span><FaStar style={{marginBottom:"8px"}}/>
      <input type="range"  name="vol" min="0" max="5"/></h6>
@@ -28,9 +28,7 @@ function Rating() {
      <h6><span style={{fontSize:"20px"}}>1</span><FaStar style={{marginBottom:"8px"}}/>
      <input type="range"  name="vol" min="0" max="5"/></h6>
     </div>
-    <div style={{textAlign:"start",marginLeft:"20%",marginRight:"2%",marginBottom:"20px"}}>
-    <Comments />
-    </div>
+   
     </div>
   )
 }

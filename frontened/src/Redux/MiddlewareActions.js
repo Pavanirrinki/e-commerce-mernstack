@@ -93,3 +93,27 @@ export const ParticularCategoryAction =(category_id)=>{
 }
 
 }
+
+export const ParticularProductAction =(product_id)=>{
+  return async (dispatch) =>{
+    dispatch({ type:'SINGLE_PRODUCT_REQUEST'});
+
+   await axios
+      .get(API+`product/${product_id}`)
+      .then((response) => {
+       console.log("response.data",response.data)
+        dispatch({
+            type:"SINGLE_PRODUCT_SUCCESS",
+            payload:response.data
+        });
+      })
+      .catch((error) => {
+         dispatch({
+            type:'SINGLE_PRODUCT_FAILURE',
+            payload:error.message
+        });
+        console.log(error.message,"pavan kumar")
+      });
+}
+
+}

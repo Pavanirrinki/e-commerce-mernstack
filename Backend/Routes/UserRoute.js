@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const express = require('express');
 const router = express.Router();
 const usermodel = require("../Models/Usermodel.js");
+const productmodel = require("../Models/Productmodel.js")
 const Middleware = require("../MiddleWare/MiddleWare.js");
 
 
@@ -79,5 +80,85 @@ const user = await usermodel.findOneAndUpdate({ email },
 })
 
 
-  
+// PRODUCT ADD TO CART
+router.post("/item_add_to_cart", async (req, res) => {
+  const {user_id, product_id } = req.body;
+
+  try {
+    const usercartdata = await usermodel.findById(user_id);
+    const addtocartproduct = await productmodel.findById(product_id)
+
+    const productIndex = usercartdata?.cartproducts?.findIndex(
+      (cartProduct) => cartProduct.product.toString() === product_id
+    );
+console.log(productIndex)
+    if (productIndex === -1) {
+      
+      const online_user = await usermodel.findByIdAndUpdate(
+        user_id,
+        {
+          $push: { cartproducts: { product: product_id, Count: 1 } },
+          $inc: { cartprice:addtocartproduct?.price},
+
+        },
+       
+        { new: true }
+      );
+
+      return res.status(200).json({ online_user });
+    } else {
+     
+      const updatedUser = await usermodel.findOneAndUpdate(
+        { _id: user_id, "cartproducts.product": product_id },
+        { $inc: { "cartproducts.$.Count": 1,cartprice:addtocartproduct?.price}},
+     
+        { new: true }
+      );
+
+      return res.status(200).json({ updatedUser });
+    }
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+
+
+
+// REMOVE PRODUCT FROM CART DATA
+router.post("/item_remove_to_cart", async (req, res) => {
+  const { user_id, product_id, data } = req.body;
+
+  try {
+    const usercartdetails = await usermodel.findById(user_id);
+    const removed_product = await productmodel.findById(product_id)
+    const indextoremove = usercartdetails?.cartproducts?.findIndex(
+      (item) => item.product.toString() === product_id
+    );
+
+    if (data === "REMOVE" && indextoremove !== -1) {
+      const removed_product_price = (removed_product?.price * usercartdetails?.cartproducts?.Count)
+      console.log(removed_product_price)
+      usercartdetails?.cartproducts.splice(indextoremove, 1);
+    const updatedUser = await usermodel.findByIdAndUpdate(
+        user_id,
+        {
+          $set: {
+            cartproducts: usercartdetails?.cartproducts,
+          },
+          $dec: { cartprice:{removed_product_price} },
+        },
+        { new: true }
+      );
+
+      return res.status(200).json({ usercartdetails: updatedUser });
+    }
+
+    return res.status(200).json({ usercartdetails });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+
 module.exports = router;

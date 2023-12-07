@@ -13,7 +13,7 @@ color: white;
 .image-slider {
   display: flex;
   overflow: hidden;
-
+justify-content: space-between;
 }
 
 .visible {

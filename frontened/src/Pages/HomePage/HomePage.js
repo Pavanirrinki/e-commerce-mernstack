@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./HomePage.css"
 import { useSelector,useDispatch } from 'react-redux';
-import { categoriesActions } from '../../Redux/MiddlewareActions';
+import { ParticularCategoryAction, categoriesActions } from '../../Redux/MiddlewareActions';
 import  Carousel  from '../../Components/Carousel';
 import CategoryProducts from '../../Components/Category_products/CategoryProducts';
 import Dropdown from '../../Components/Dropdowns/Dropdown';
@@ -18,6 +18,7 @@ function HomePage() {
   useEffect( ()=>{
     const responsedata = async () =>{
 await dispatch(categoriesActions())
+
     }
     responsedata();
    },[])
@@ -62,7 +63,11 @@ await dispatch(categoriesActions())
           </ul>
 
 <Carousel />
-<CategoryProducts />
+<CategoryProducts categoryproduct='ELECTRONICS'/>
+<CategoryProducts categoryproduct='ELECTRONICS'/>
+<CategoryProducts categoryproduct='ELECTRONICS'/>
+
+
 </div>
   )
 }
