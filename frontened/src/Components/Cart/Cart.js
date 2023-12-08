@@ -1,10 +1,20 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import Travel from "../../Images/aeroplane.jpg"
 import "./Cart.css"
 import "../MyOrders/MyOrders.css";
 import { CiCirclePlus } from "react-icons/ci";
 import { CiCircleMinus } from "react-icons/ci";
+import { useSelector,useDispatch } from 'react-redux';
+import { loggeduserAction } from '../../Redux/MiddlewareActions';
 function Cart() {
+ const dispatch = useDispatch();
+ const userdetails = JSON.parse(localStorage.getItem("userdata"));
+ const userstate = useSelector((state)=>console.log(state.UserDetailsReducer?.user?.user_details))
+useEffect(()=>{
+    if(userdetails){
+dispatch(loggeduserAction(userdetails?.user?._id))
+}
+},[dispatch])
     return (
         <div style={{display:"flex",justifyContent:"space-around"}}>
         <div className='my_cart_container'>

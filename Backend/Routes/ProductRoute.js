@@ -3,7 +3,7 @@ const productmodel = require("../Models/Productmodel.js");
 const categorymodel = require("../Models/Categorymodel.js");
 const Usermodel = require("../Models/Usermodel.js");
 const router = express.Router();
-
+const middleware = require("../MiddleWare/MiddleWare.js");
 //add category
 router.post("/add_category",async(req,res)=>{
     const{name,description,Image} =req.body;

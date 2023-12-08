@@ -11,13 +11,34 @@ import Comments from '../Comments/Comments.js';
 function Singleproduct() {
   const [particularproductdata,setParticularproductdata] = useState(null);
   const [imageId,setImageId] = useState(null)
+  const userdetails = JSON.parse(localStorage.getItem("userdata"));
+  const usercartdata = JSON.parse(localStorage.getItem("cartdata"));
+  const productpresentornotincart = 
+  usercartdata?.updatedUser?.cartproducts?.findIndex((cartproduct)=>cartproduct.product.toString() == particularproductdata?.particularproduct?._id)
+
+  console.log(userdetails?.user,productpresentornotincart)
 useEffect(()=>{
-axios.get(API+"product/656db0e4eb469dcbc456b0f2").
+axios.get(API+"product/656dad0d9312284e55a845bd").
 then((res)=>setParticularproductdata(res.data)).catch((error)=>console.log(error.message))
 },[])
 
+
 const imageschange=(idx)=>{
  setImageId(idx)
+}
+const Item_Added_to_cart =(e,product_id) =>{
+  e.preventDefault();
+console.log("product_id",product_id);
+   axios.post(API+"item_add_to_cart",{
+    user_id:userdetails?.user,
+    product_id,
+   },{
+    headers: {
+      'Content-Type': 'application/json', 
+      'X-Token': userdetails?.token
+    }
+  }).then((data)=>localStorage.setItem("cartdata",JSON.stringify(data.data))).catch((error)=>console.log(error.message));
+   
 }
 console.log(particularproductdata,'particular')
   return (
@@ -41,8 +62,13 @@ console.log(particularproductdata,'particular')
         style={{ height: '400px', width: "400px", border: '1px solid black', margin: "0px 70px 10px 10px" }} />
         </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <button style={{ border: "none", backgroundColor: "#ff9f00", padding: "15px", color: "white", fontWeight: "bold", fontSize: "15px" }}>
-            <FaShoppingCart style={{ fontSize: "30px", color: "white", marginRight: "10px" }} />ADD TO CART</button>
+
+          { usercartdata == undefined || productpresentornotincart == -1  || productpresentornotincart == undefined ?  <button style={{ border: "none", backgroundColor: "#ff9f00", padding: "15px", color: "white", fontWeight: "bold", fontSize: "15px" }}  
+          onClick={(e)=>Item_Added_to_cart(e,particularproductdata?.particularproduct?._id)}>
+            <FaShoppingCart style={{ fontSize: "30px", color: "white", marginRight: "10px" }} />ADD TO CART</button> : 
+            <button style={{ border: "none", backgroundColor: "#ff9f00", padding: "15px", color: "white", fontWeight: "bold", fontSize: "15px" }}   >
+            <FaShoppingCart style={{ fontSize: "30px", color: "white", marginRight: "10px" }} />GO TO CART</button> }
+          
           <button style={{ border: "none", marginLeft: "30px", backgroundColor: "#f08b07", padding: "15px", color: "white", fontWeight: "bold", fontSize: "15px" }}>
             <AiFillThunderbolt style={{ fontSize: "30px", color: "white", marginRight: "10px" }} />BUY NOW</button>
         </div>
@@ -84,9 +110,9 @@ console.log(particularproductdata,'particular')
       </div>
     </div>
     <div style={{display:"flex",justifyContent:"space-between"}}>
-    <Rating Rating={particularproductdata?.particularproduct.rating}/>
+    <Rating Rating={particularproductdata?.particularproduct?.rating}/>
     <div style={{textAlign:"start",marginLeft:"20%",marginRight:"2%",marginBottom:"20px",width:"60%"}}>
-    <Comments comments={particularproductdata?.particularproduct.comments} rating={particularproductdata?.particularproduct?.rating}/>
+    <Comments comments={particularproductdata?.particularproduct?.comments} rating={particularproductdata?.particularproduct?.rating}/>
     </div>
     </div>
     </>  

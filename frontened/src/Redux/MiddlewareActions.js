@@ -117,3 +117,27 @@ export const ParticularProductAction =(product_id)=>{
 }
 
 }
+
+export const loggeduserAction =(user_id)=>{
+  return async (dispatch) =>{
+    dispatch({ type:'USERDETAILS_REQUEST'});
+
+   await axios
+      .get(API+`particular_user/${user_id}`)
+      .then((response) => {
+       console.log("response.data",response.data)
+        dispatch({
+            type:"USERDETAILS_SUCCESS",
+            payload:response.data
+        });
+      })
+      .catch((error) => {
+         dispatch({
+            type:'USERDETAILS_FAILURE',
+            payload:error.message
+        });
+        console.log(error.message,"pavan kumar")
+      });
+}
+
+}

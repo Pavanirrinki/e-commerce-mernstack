@@ -6,7 +6,15 @@ const productmodel = require("../Models/Productmodel.js")
 const Middleware = require("../MiddleWare/MiddleWare.js");
 
 
-
+// GET PARTICULAR USER DATA
+router.get("/particular_user/:id",async(req,res)=>{
+  try{
+const user_details = await usermodel.findById(req.params.id);
+return res.status(200).json({user_details})
+  }catch(error){
+    return res.status(500).json({error:error.message})
+  }
+})
 //-----------------SIGN UP ROUTE------------
 router.post("/signup", async (req, res) => {
   const { firstname, lastname, email, password } = req.body;
@@ -81,20 +89,20 @@ const user = await usermodel.findOneAndUpdate({ email },
 
 
 // PRODUCT ADD TO CART
-router.post("/item_add_to_cart", async (req, res) => {
+router.post("/item_add_to_cart", Middleware,async (req, res) => {
   const {user_id, product_id } = req.body;
 
   try {
     const usercartdata = await usermodel.findById(user_id);
     const addtocartproduct = await productmodel.findById(product_id)
-
+console.log(product_id,'poker')
     const productIndex = usercartdata?.cartproducts?.findIndex(
-      (cartProduct) => cartProduct.product.toString() === product_id
+      (cartProduct) => cartProduct.product?.toString() === product_id
     );
 console.log(productIndex)
     if (productIndex === -1) {
       
-      const online_user = await usermodel.findByIdAndUpdate(
+      const updatedUser = await usermodel.findByIdAndUpdate(
         user_id,
         {
           $push: { cartproducts: { product: product_id, Count: 1 } },
@@ -105,7 +113,7 @@ console.log(productIndex)
         { new: true }
       );
 
-      return res.status(200).json({ online_user });
+      return res.status(200).json({ updatedUser });
     } else {
      
       const updatedUser = await usermodel.findOneAndUpdate(
@@ -131,14 +139,15 @@ router.post("/item_remove_to_cart", async (req, res) => {
 
   try {
     const usercartdetails = await usermodel.findById(user_id);
-    const removed_product = await productmodel.findById(product_id)
+    const removed_product = await productmodel.findById(product_id);
+
     const indextoremove = usercartdetails?.cartproducts?.findIndex(
-      (item) => item.product.toString() === product_id
+      (item) => item.product?.toString() === product_id
     );
 
-    if (data === "REMOVE" && indextoremove !== -1) {
-      const removed_product_price = (removed_product?.price * usercartdetails?.cartproducts?.Count)
-      console.log(removed_product_price)
+    if ((data === "REMOVE" && indextoremove !== -1) || (data == "DECREMENT" && indextoremove !== -1 && usercartdetails?.cartproducts[indextoremove].Count == 1)) {
+      const removed_product_price = (removed_product?.price * usercartdetails?.cartproducts[indextoremove].Count)
+     
       usercartdetails?.cartproducts.splice(indextoremove, 1);
     const updatedUser = await usermodel.findByIdAndUpdate(
         user_id,
@@ -146,11 +155,27 @@ router.post("/item_remove_to_cart", async (req, res) => {
           $set: {
             cartproducts: usercartdetails?.cartproducts,
           },
-          $dec: { cartprice:{removed_product_price} },
+          $inc: { cartprice: -removed_product_price },
         },
         { new: true }
       );
 
+      return res.status(200).json({ usercartdetails: updatedUser });
+    }
+
+
+    if (data === "DECREMENT" && indextoremove !== -1 && usercartdetails.cartproducts[indextoremove].Count >1) {
+      const updatedUser = await usermodel.findOneAndUpdate(
+        { _id: user_id, "cartproducts.product": product_id },
+        {
+          $inc: {
+            "cartproducts.$.Count": -1,
+            cartprice: -removed_product?.price
+          }
+        },
+        { new: true }
+      );
+    
       return res.status(200).json({ usercartdetails: updatedUser });
     }
 

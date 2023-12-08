@@ -4,16 +4,19 @@ import axios from 'axios';
 import { API } from '../../API/API';
 import { useNavigate } from 'react-router-dom';
 import {  toast } from 'react-toastify';
-
+import { useSelector,useDispatch } from 'react-redux';
 function Login() {
   const [email,setEmail]= useState('');
   const [password,setPassword]= useState('');
   const navigate = useNavigate()
+
+ 
   const loginformsubmit = async (e) =>{
     e.preventDefault();
    await axios.post(API+"login",{email,password}).
    then(async (res)=>{
    await localStorage.setItem("userdata",JSON.stringify(res.data));
+   
    navigate("/")
   }).catch((error)=>{
   console.log(error.message);
