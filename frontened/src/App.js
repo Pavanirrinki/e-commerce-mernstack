@@ -34,7 +34,9 @@ useEffect(() => {
 
   return (
     <div>
-      {shouldDisplayHeaderFooter() && <Header />}
+      {shouldDisplayHeaderFooter() &&<div> 
+        <Header />
+        </div>}
 
       <Routes>
         <Route path='/' element={<HomePage />} />

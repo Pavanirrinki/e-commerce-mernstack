@@ -9,7 +9,8 @@ const Middleware = require("../MiddleWare/MiddleWare.js");
 // GET PARTICULAR USER DATA
 router.get("/particular_user/:id",async(req,res)=>{
   try{
-const user_details = await usermodel.findById(req.params.id);
+const user_details = await usermodel.findById(req.params.id).
+populate('cartproducts.product', 'name price description category images');;
 return res.status(200).json({user_details})
   }catch(error){
     return res.status(500).json({error:error.message})

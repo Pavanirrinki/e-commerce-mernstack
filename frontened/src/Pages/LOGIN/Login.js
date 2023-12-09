@@ -2,10 +2,11 @@ import React,{useState} from 'react'
 import "./Login.css"
 import axios from 'axios';
 import { API } from '../../API/API';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {  toast } from 'react-toastify';
 import { useSelector,useDispatch } from 'react-redux';
 function Login() {
+
   const [email,setEmail]= useState('');
   const [password,setPassword]= useState('');
   const navigate = useNavigate()
@@ -16,7 +17,8 @@ function Login() {
    await axios.post(API+"login",{email,password}).
    then(async (res)=>{
    await localStorage.setItem("userdata",JSON.stringify(res.data));
-   
+   setEmail('');
+   setPassword('');
    navigate("/")
   }).catch((error)=>{
   console.log(error.message);
@@ -47,7 +49,7 @@ function Login() {
  <p className='forgot-password'>Forgot password ?</p>
  <div className='login-btn-container'>
 <button className='login-btn' onClick={loginformsubmit}>LOGIN</button>
- <p style={{fontWeight:"bolder"}}>Dont have account ? sign up</p>
+ <p style={{fontWeight:"bolder"}}>Dont have account ?<Link to="/signup" className='link-router-dom'>sign up</Link> </p>
  </div>
   </div>
  

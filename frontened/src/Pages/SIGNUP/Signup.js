@@ -3,8 +3,7 @@ import "./Signup.css"
 import { CgProfile } from 'react-icons/cg';
 import { useDispatch, useSelector } from 'react-redux';
 import { signupActions } from '../../Redux/MiddlewareActions';
-import { API } from '../../API/API';
-import axios from "axios"
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 function Signup() {
   const dispatch = useDispatch();
@@ -24,7 +23,7 @@ function Signup() {
 await dispatch(signupActions(payload))
     console.log(firstname,lastname,email,password);
     setTimeout(()=>{
-navigate("/")
+navigate("/login")
     },2000)
   }
 
@@ -32,7 +31,7 @@ navigate("/")
     <div className='body'>
 <div class="signup-container">
     <div class="profile-pic1">
-        <CgProfile />
+   <CgProfile />
         </div>
     <div class="content">
       <form  onSubmit={signupformSubmit}>
@@ -47,20 +46,24 @@ navigate("/")
           </div>
           <div class="input-box">
             <span class="details">Email</span>
-            <input type="text" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <input type="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
          
           <div class="input-box">
             <span class="details">Password</span>
-            <input type="text" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            <input type="password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} required />
           </div>
          
         </div>
-    
+ 
         <div class="button">
           <input type="submit" value={userdata.isLoading ? "loading........":"Register"} />
+          <p style={{marginTop:"0px",textAlign:"center",fontWeight:"bold"}}>Already have account ?
+          <Link to="/login" className='link-router-dom'> LOG IN</Link></p>
         </div>
+       
       </form>
+     
     </div>
   </div>
     </div>

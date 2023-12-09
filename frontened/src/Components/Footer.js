@@ -51,18 +51,18 @@ function Footer() {
 <div>
     <h6 style={{textAlign:"center",}}>Useful Links</h6>
    <div style={{display:"flex",justifyContent:"space-around"}}>
-    <ul style={{display:"flex",flexDirection:"column",color:"white",listStyleType:"none"}}>
-        <li>Home</li>
-        <li>Home</li>
-        <li>Home</li>
-        <li>Home</li>
-        <li>Home</li>
+    <ul style={{display:"flex",flexDirection:"column",color:"white",listStyleType:"none",justifyContent:"flex-start"}}>
+        <li>About Us</li>
+        <li>Contact Us</li>
+        <li>Emailid</li>
+        <li>Facebook</li>
+        <li>Twitter</li>
     </ul>
-    <ul style={{display:"flex",flexDirection:"column",color:"white",listStyleType:"none"}}>
-        <li>Home</li>
-        <li>Home</li>
-        <li>Home</li>
-        <li>Home</li>
+    <ul style={{display:"flex",flexDirection:"column",color:"white",listStyleType:"none",justifyContent:"flex-start"}}>
+        <li>Instagram</li>
+        <li>Whatsapp</li>
+        <li>Youtube</li>
+        <li>Careers</li>
         <li>Home</li>
     </ul>
     </div>

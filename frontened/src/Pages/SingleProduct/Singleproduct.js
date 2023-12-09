@@ -1,5 +1,4 @@
 import React,{useState,useEffect} from 'react'
-import Travel from '../../Images/aeroplane.jpg'
 import { FaTags } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
 import { AiFillThunderbolt } from "react-icons/ai";
@@ -7,8 +6,11 @@ import Rating from '../Rating&Reviews/Rating';
 import axios from "axios";
 import { API } from '../../API/API';
 import Comments from '../Comments/Comments.js';
+import { useParams } from 'react-router-dom';
 
 function Singleproduct() {
+  const {id} = useParams()
+  console.log("id",id)
   const [particularproductdata,setParticularproductdata] = useState(null);
   const [imageId,setImageId] = useState(null)
   const userdetails = JSON.parse(localStorage.getItem("userdata"));
@@ -18,7 +20,7 @@ function Singleproduct() {
 
   console.log(userdetails?.user,productpresentornotincart)
 useEffect(()=>{
-axios.get(API+"product/656dad0d9312284e55a845bd").
+axios.get(API+`product/${id}`).
 then((res)=>setParticularproductdata(res.data)).catch((error)=>console.log(error.message))
 },[])
 

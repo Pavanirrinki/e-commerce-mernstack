@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './CategoryProducts.css';
-
 import groceries from "../../Images/6ca8f02f56d48f0daf38063da995e763.png"
 import mobiles from "../../Images/download.jpeg"
 import Travel from "../../Images/aeroplane.jpg"
@@ -13,11 +12,13 @@ import Fashion from "../../Images/fashion-verge.avif"
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from 'react-icons/bs';
 import { useSelector,useDispatch } from 'react-redux';
 import { ParticularCategoryAction} from '../../Redux/MiddlewareActions';
+import {useNavigate} from "react-router-dom";
 
 function CategoryProducts({categoryproduct}) {
   const [slide, setSlide] = useState(0);
   const particularcategoryproducts = useSelector((state)=>(state.ParticularCategoryReducer.products))
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(()=>{
 dispatch(ParticularCategoryAction(categoryproduct))
   },[])
@@ -33,7 +34,7 @@ dispatch(ParticularCategoryAction(categoryproduct))
 
   return (
     <div style={{marginBottom:"50px"}}>
-      <h5 className="category_heading">Best Of Electronics</h5>
+      <h5 className="category_heading">Best Of {categoryproduct}</h5>
       <div style={{display:"flex",alignItems:"center"}}>
         <BsArrowLeftCircleFill className="arrow1" onClick={previousimages} />
         <div className='image-slider'>
@@ -45,6 +46,7 @@ dispatch(ParticularCategoryAction(categoryproduct))
         alt={`image-${idx}`}
         className={idx >= slide && idx < slide + 6 ? 'visible' : 'hidden'}
         style={{ width: "200px", height: "200px", border: "1px black solid", marginLeft: "10px" }}
+        onClick={()=>navigate(`/product/${product?._id}`)}
       />
     );
   })}

@@ -41,7 +41,7 @@ await dispatch(categoriesActions())
   };
 
 
-  console.log("pavan kumar srimannarayana",categoriesdata)
+
 
   return (
     <div>

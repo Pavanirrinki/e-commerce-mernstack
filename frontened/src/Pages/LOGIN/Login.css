@@ -29,9 +29,10 @@ transform: translate(-50%,-50%);
     border: none;
     padding-top: 5px;
     padding-bottom: 5px;
-    background-color:gray;
+    color: white;
     font-weight: 900;
     font-size: 20px;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
 }
 .login-btn-container{
     display: flex;
