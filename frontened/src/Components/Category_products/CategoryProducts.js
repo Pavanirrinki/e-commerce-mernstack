@@ -25,18 +25,18 @@ dispatch(ParticularCategoryAction(categoryproduct))
   const images = [Travel,mobiles,groceries,Fashion,Home_furniture,Electronics,Appliances,Two_wheeler,Toys_beauty];
 
   const forwardimages = () => {
-    setSlide((prevSlide) => (prevSlide + 6) % images.length);
+    setSlide((prevSlide) => (prevSlide + 1) % images.length);
   };
 
   const previousimages = () => {
-    setSlide((prevSlide) => (prevSlide - 6 + images.length) % images.length);
+    setSlide((prevSlide) => (prevSlide - 1 + images.length) % images.length);
   };
 
   return (
     <div style={{marginBottom:"50px"}}>
       <h5 className="category_heading">Best Of {categoryproduct}</h5>
       <div style={{display:"flex",alignItems:"center"}}>
-        <BsArrowLeftCircleFill className="arrow1" onClick={previousimages} />
+        {/* <BsArrowLeftCircleFill className="arrow1" onClick={previousimages} /> */}
         <div className='image-slider'>
   {particularcategoryproducts?.map((product, idx) => {
     return (
@@ -52,7 +52,7 @@ dispatch(ParticularCategoryAction(categoryproduct))
   })}
 </div>
 
-        <BsArrowRightCircleFill className="arrow1"   onClick={forwardimages} />
+        {/* <BsArrowRightCircleFill className="arrow1"   onClick={forwardimages} /> */}
       </div>
     </div>
   );

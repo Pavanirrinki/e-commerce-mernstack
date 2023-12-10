@@ -33,11 +33,11 @@ await dispatch(categoriesActions())
  
 
   const forwardimages = () => {
-    setSlide((prevSlide) => (prevSlide + 9) % categoriesdata.length);
+    setSlide((prevSlide) => (prevSlide + 1) % categoriesdata.length);
   };
 
   const previousimages = () => {
-    setSlide((prevSlide) => (prevSlide - 9 + categoriesdata.length) % categoriesdata.length);
+    setSlide((prevSlide) => (prevSlide - 1 + categoriesdata.length) % categoriesdata.length);
   };
 
 
@@ -61,8 +61,9 @@ await dispatch(categoriesActions())
 {categoriesdata && categoriesdata?.length >9 &&
     <BsArrowRightCircleFill className='arrow1' style={{margin:"auto 0",zIndex:"100px"}} onClick={forwardimages} />   }
           </ul>
-
+<div>
 <Carousel />
+</div>
 <CategoryProducts categoryproduct='ELECTRONICS'/>
 <CategoryProducts categoryproduct='ELECTRONICS'/>
 <CategoryProducts categoryproduct='ELECTRONICS'/>

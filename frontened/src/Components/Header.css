@@ -12,12 +12,12 @@
 li{
     margin-bottom: 20px;
 }
-li .search-container {
+ .search-container {
     position: relative;
     display: inline-block;
   }
   
-  li input {
+  .input_data {
     width: 300px;
     padding: 5px 30px 5px 10px;
     border-radius: 15px;
@@ -25,7 +25,7 @@ li .search-container {
     text-align: center;
   }
   
-  li .search-icon {
+   .search-icon {
     position: absolute;
     right: 10px; 
     top: 50%;
@@ -83,10 +83,23 @@ li div p{
       display: none;
     }
     .mobile-version{
-      display: flex;
+      display: block;
       background-color: antiquewhite;
       min-height: 60px;
-      justify-content: flex-start;
-      align-items: center;
-   }
+      width: 100%;
+ }
+ .search-icon {
+  position: absolute;
+  right: 50px; 
+  top: 40%;
+  transform: translateY(-50%);
+}
+.input_data {
+  width: 80%;
+  padding: 5px 30px 5px 10px;
+  border-radius: 15px;
+  border-width: 1px;
+  text-align: center;
+  margin-bottom: 10px;
+}
 }

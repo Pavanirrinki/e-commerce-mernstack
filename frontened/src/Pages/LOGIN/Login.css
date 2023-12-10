@@ -56,5 +56,9 @@ color:#3e3d42;
   .login-btn{
        width: 50%;
   }
+  .login-container{
+     width: 90%;
+  
+    }
 }
 

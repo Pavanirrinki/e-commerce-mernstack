@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React,{useState,useEffect} from 'react'
 import Header from './Components/Header';
 import Footer from './Components/Footer';
 import Login from './Pages/LOGIN/Login';
@@ -18,6 +18,7 @@ import EditProduct from './Components/Admin_panel/Products/EditProduct';
 
 
 function App() {
+  const [togglehammburger,setTogglehammburger] = useState(false);
   const userdata = useSelector((state) => state);
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -28,18 +29,21 @@ const shouldDisplayHeaderFooter = () => {
   return (!noHeaderFooterRoutes.some(route => window.location.pathname.includes(route)))
 
 };
+
 useEffect(() => {
   shouldDisplayHeaderFooter();
+  setTogglehammburger(false)
 }, [navigate])
 
   return (
     <div>
       {shouldDisplayHeaderFooter() &&<div> 
-        <Header />
+        <Header togglehammburger={togglehammburger} setTogglehammburger={setTogglehammburger}/>
         </div>}
-
-      <Routes>
-        <Route path='/' element={<HomePage />} />
+<div onClick={()=>{setTogglehammburger(false)}}>
+      <Routes >
+        
+        <Route path='/'  element={<HomePage />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/Myorders' element={<MyOrders />} />
@@ -52,7 +56,9 @@ useEffect(() => {
           <Route path='Categories' element={<Categories />} />
           <Route path='Edit_product/:id' element={<EditProduct />} />
         </Route>
+       
       </Routes>
+       </div>
       {shouldDisplayHeaderFooter() && <Footer />}
 
     </div>
