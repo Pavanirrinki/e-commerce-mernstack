@@ -53,12 +53,11 @@ color:#3e3d42;
 
 /* mobile devices */
 @media (max-width: 768px) {
-  .login-btn{
+.login-btn{
        width: 50%;
   }
-  .login-container{
+.login-container{
      width: 90%;
-  
-    }
+}
 }
 

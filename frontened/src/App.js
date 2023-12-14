@@ -15,14 +15,14 @@ import CreateProduct from './Components/Admin_panel/Products/CreateProduct';
 import CreateNewproduct from './Components/Admin_panel/Products/CreateNewproduct';
 import Categories from './Components/Admin_panel/Products/Categories';
 import EditProduct from './Components/Admin_panel/Products/EditProduct';
-
+import ManageAddress from './Components/Manage Address/ManageAddress';
 
 function App() {
-  const [togglehammburger,setTogglehammburger] = useState(false);
+ 
   const userdata = useSelector((state) => state);
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const noHeaderFooterRoutes = ['/login', '/signup', '/admin_panel'];
+  const noHeaderFooterRoutes = ['/login', '/signup', '/admin_panel',"/Cart"];
 console.log()
 const shouldDisplayHeaderFooter = () => {
 
@@ -32,29 +32,30 @@ const shouldDisplayHeaderFooter = () => {
 
 useEffect(() => {
   shouldDisplayHeaderFooter();
-  setTogglehammburger(false)
+  
 }, [navigate])
 
   return (
     <div>
       {shouldDisplayHeaderFooter() &&<div> 
-        <Header togglehammburger={togglehammburger} setTogglehammburger={setTogglehammburger}/>
+        <Header />
         </div>}
-<div onClick={()=>{setTogglehammburger(false)}}>
+<div>
       <Routes >
-        
         <Route path='/'  element={<HomePage />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/Myorders' element={<MyOrders />} />
         <Route path='/Cart' element={<Cart />} />
         <Route path='/product/:id' element={<Singleproduct />} />
+        <Route path='manage_address' element={<ManageAddress />} />
         <Route path='/admin_panel' element={<AdminHomePage />} >
           <Route path='Dashboard' element={<Dashboard />} />
           <Route path='CreateProduct' element={<CreateProduct />} />
           <Route path='CreateNewproduct' element={<CreateNewproduct />} />
           <Route path='Categories' element={<Categories />} />
           <Route path='Edit_product/:id' element={<EditProduct />} />
+         
         </Route>
        
       </Routes>

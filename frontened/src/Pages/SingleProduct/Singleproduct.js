@@ -7,7 +7,7 @@ import axios from "axios";
 import { API } from '../../API/API';
 import Comments from '../Comments/Comments.js';
 import { useParams } from 'react-router-dom';
-
+import "./Singleproduct.css"
 function Singleproduct() {
   const {id} = useParams()
   console.log("id",id)
@@ -44,10 +44,10 @@ console.log("product_id",product_id);
 }
 console.log(particularproductdata,'particular')
   return (
-    <><div style={{ display: "flex", justifyContent: "space-between" }}>
+    <><div className='single_product_container'>
       <div>
-        <div style={{display:'flex'}}>
-       <div style={{display:"flex",flexDirection:"column",paddingLeft:"0px"}}>
+        <div style={{display:'flex'}} >
+       <div  className='mobile_version_images'>
        {particularproductdata && particularproductdata?.particularproduct?.images?.map((data, idx) => {
     return (
         <img
@@ -63,6 +63,19 @@ console.log(particularproductdata,'particular')
         <img src={!imageId ?particularproductdata?.particularproduct?.images[0]: particularproductdata?.particularproduct.images[imageId]} 
         style={{ height: '400px', width: "400px", border: '1px solid black', margin: "0px 70px 10px 10px" }} />
         </div>
+        <div  className='d-md-none'>
+       {particularproductdata && particularproductdata?.particularproduct?.images?.map((data, idx) => {
+    return (
+        <img
+            key={idx} 
+            src={data}
+            style={{ height: '100px', width: "80px", margin: "0px 0px 10px 10px" }}
+            onMouseOver={() => imageschange(idx)} 
+        />
+    );
+})}
+
+       </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
 
           { usercartdata == undefined || productpresentornotincart == -1  || productpresentornotincart == undefined ?  <button style={{ border: "none", backgroundColor: "#ff9f00", padding: "15px", color: "white", fontWeight: "bold", fontSize: "15px" }}  
@@ -76,7 +89,7 @@ console.log(particularproductdata,'particular')
         </div>
       </div>
 
-      <div>
+      <div className='text_align_mobile'>
         <p>{particularproductdata?.particularproduct?.description}</p>
         <span style={{ float: "left", color: "white", backgroundColor: "green", padding: "2px", marginRight: "10px", borderRadius: "10px" }}>{particularproductdata?.rating} rating</span>
         <p>1,249 Ratings & 108 Reviews</p>
@@ -111,9 +124,9 @@ console.log(particularproductdata,'particular')
 
       </div>
     </div>
-    <div style={{display:"flex",justifyContent:"space-between"}}>
+    <div className='d-md-flex'>
     <Rating Rating={particularproductdata?.particularproduct?.rating}/>
-    <div style={{textAlign:"start",marginLeft:"20%",marginRight:"2%",marginBottom:"20px",width:"60%"}}>
+    <div style={{}} className='width_comments'>
     <Comments comments={particularproductdata?.particularproduct?.comments} rating={particularproductdata?.particularproduct?.rating}/>
     </div>
     </div>
