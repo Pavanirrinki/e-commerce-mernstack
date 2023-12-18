@@ -16,6 +16,7 @@ import CreateNewproduct from './Components/Admin_panel/Products/CreateNewproduct
 import Categories from './Components/Admin_panel/Products/Categories';
 import EditProduct from './Components/Admin_panel/Products/EditProduct';
 import ManageAddress from './Components/Manage Address/ManageAddress';
+import PlaceOrder from './Components/PlaceOrder/PlaceOrder';
 
 function App() {
  
@@ -49,6 +50,7 @@ useEffect(() => {
         <Route path='/Cart' element={<Cart />} />
         <Route path='/product/:id' element={<Singleproduct />} />
         <Route path='manage_address' element={<ManageAddress />} />
+        <Route path='place_order' element={<PlaceOrder />} />
         <Route path='/admin_panel' element={<AdminHomePage />} >
           <Route path='Dashboard' element={<Dashboard />} />
           <Route path='CreateProduct' element={<CreateProduct />} />

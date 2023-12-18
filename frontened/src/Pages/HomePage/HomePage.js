@@ -49,6 +49,7 @@ await dispatch(categoriesActions())
     {categoriesdata && categoriesdata?.length >9  &&
 <BsArrowLeftCircleFill className="arrow1"  onClick={previousimages} style={{margin:"auto 0"}}/> }
   {categoriesdata && categoriesdata?.map((category,idx)=>{
+    console.log(category.name,"pavannnnnn kumrrrrrr")
     return(
       <div style={{position:"relative",cursor:"pointer"}}  onMouseOver={() => handleMouseOver(category.name.toLowerCase())} 
       onMouseOut={handleMouseOut} className={idx >= slide && idx < slide + 9 ? 'visible' : 'hidden'}>

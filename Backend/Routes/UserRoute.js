@@ -187,4 +187,18 @@ router.post("/item_remove_to_cart", async (req, res) => {
 });
 
 
+//MANAGE ADDRESS
+router.post("/manage_addresses/:id",async(req,res)=>{
+  const {name, mobileNumber, zipcode, Area, city, Landmark, alternativephone, Address_type,Locality,State} = req.body;
+ try{
+const user_address = await usermodel.findById(req.params.id);
+const new_address = {name, mobileNumber, zipcode, Area, city, Landmark, alternativephone, Address_type,Locality,State};
+ await user_address?.Addresses?.push(new_address);
+await user_address.save()
+return res.status(200).json("Successfully added address");
+  }catch(error){
+    return res.status(400).json({error:error.message})
+  }
+})
+
 module.exports = router;

@@ -126,7 +126,11 @@ function Cart() {
               <h5>Total Amount</h5>
               <h5>$ {userstate?.cartprice}</h5>
             </div>
-            <hr style={{ border: "1px solid black" }} />
+            <hr style={{ border: "1px solid black",marginBottom:"2px"}} />
+            <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+            <button style={{backgroundColor:"#fb641b",padding:"10px 30px",
+            border:"none",borderRadius:"5px",fontWeight:"900",color:"white"}}>Place Order</button>
+            </div>
           </div>
 
 
